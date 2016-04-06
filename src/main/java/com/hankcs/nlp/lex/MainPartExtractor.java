@@ -8,6 +8,7 @@ import edu.stanford.nlp.ling.Word;
 import edu.stanford.nlp.parser.lexparser.LexicalizedParser;
 import edu.stanford.nlp.trees.*;
 import edu.stanford.nlp.trees.international.pennchinese.ChineseTreebankLanguagePack;
+import net.sf.json.JSONObject;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
@@ -295,7 +296,8 @@ public class MainPartExtractor
 			PrintWriter printWriter = new PrintWriter(s.getOutputStream());
 			
 			 
-			
+			System.out.println("发送给客户端的响应："+advice);
+			System.out.println();
 			printWriter.println(advice);
 			printWriter.close();
 			text = "";
@@ -328,7 +330,7 @@ public class MainPartExtractor
     	{
     		String api_url;
     		try {
-    			api_url = new StringBuilder("http://fanyi.baidu.com/transapi?from=zh&to=en&query=")
+    			api_url = new StringBuilder("http://www.tuling123.com/openapi/api?key=3f0d3db242876223c16e5a4ae633ab93&info=")
     			.append(URLEncoder.encode(source,"utf-8")).toString();
     			
     			//String json=HttpGet.getHtml(api_url, "utf-8");
@@ -380,12 +382,16 @@ public class MainPartExtractor
     	public static String xiaoHuangJi(String source){
     		String api_url;
     		try {
-    			api_url = new StringBuilder("http://www.niurenqushi.com/app/simsimi/ajax.aspx?txt=")
-    			.append(URLEncoder.encode(source,"utf-8")).toString();
+    			/*api_url = new StringBuilder("http://www.tuling123.com/openapi/api?key=3f0d3db242876223c16e5a4ae633ab93&info=")
+    			.append(URLEncoder.encode(source,"utf-8")).toString();*/
+    			api_url = new StringBuilder("http://api.qingyunke.com/api.php?key=free&appid=0&msg=")
+    	    			.append(URLEncoder.encode(source,"utf-8")).toString();
+    			
     			
     			//String json=HttpGet.getHtml(api_url, "utf-8");
     			String json= doGet(api_url, null, "utf-8", true);
-    			
+    			//json = (String) JSONObject.fromObject(json).get("text");
+    			json = (String) JSONObject.fromObject(json).get("content");
     			return json;
     		} catch (Exception e) {
     			// TODO Auto-generated catch block
