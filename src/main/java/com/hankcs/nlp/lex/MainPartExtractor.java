@@ -294,6 +294,7 @@ public class MainPartExtractor
 				advice = BaiduTranslateDemo.translateToEn(request);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
+				System.out.println("Exception!");
 				e.printStackTrace();
 			}
 			if(advice==null)
